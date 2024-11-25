@@ -4,31 +4,34 @@ declare(strict_types=1);
 
 namespace Tempest\Cache;
 
+use Tempest\Container\Container;
 use Tempest\Core\Discovery;
-use Tempest\Core\DiscoveryLocation;
-use Tempest\Core\IsDiscovery;
+use Tempest\Core\HandlesDiscoveryCache;
 use Tempest\Reflection\ClassReflector;
 
-final class CacheDiscovery implements Discovery
+final readonly class CacheDiscovery implements Discovery
 {
-    use IsDiscovery;
+    use HandlesDiscoveryCache;
 
     public function __construct(
-        private readonly CacheConfig $cacheConfig,
+        private CacheConfig $cacheConfig,
     ) {
     }
 
-    public function discover(DiscoveryLocation $location, ClassReflector $class): void
+    public function discover(ClassReflector $class): void
     {
         if ($class->implements(Cache::class)) {
-            $this->discoveryItems->add($location, $class->getName());
+            $this->cacheConfig->addCache($class->getName());
         }
     }
 
-    public function apply(): void
+    public function createCachePayload(): string
     {
-        foreach ($this->discoveryItems as $className) {
-            $this->cacheConfig->addCache($className);
-        }
+        return serialize($this->cacheConfig->caches);
+    }
+
+    public function restoreCachePayload(Container $container, string $payload): void
+    {
+        $this->cacheConfig->caches = unserialize($payload);
     }
 }

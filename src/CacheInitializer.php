@@ -11,8 +11,8 @@ use Tempest\Container\Singleton;
 final readonly class CacheInitializer implements Initializer
 {
     #[Singleton]
-    public function initialize(Container $container): Cache|ProjectCache
+    public function initialize(Container $container): Cache|GenericCache
     {
-        return new ProjectCache($container->get(CacheConfig::class));
+        return new GenericCache($container->get(CacheConfig::class)->pool);
     }
 }

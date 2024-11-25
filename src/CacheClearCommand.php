@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tempest\Cache;
 
+use Tempest\Console\Console;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\Container\Container;
@@ -13,6 +14,7 @@ final readonly class CacheClearCommand
     use HasConsole;
 
     public function __construct(
+        private Console $console,
         private CacheConfig $cacheConfig,
         private Container $container,
     ) {

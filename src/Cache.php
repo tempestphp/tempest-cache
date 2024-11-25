@@ -20,6 +20,4 @@ interface Cache
     public function remove(string $key): void;
 
     public function clear(): void;
-
-    public function isEnabled(): bool;
 }
