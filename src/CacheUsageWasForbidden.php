@@ -4,7 +4,7 @@ namespace Tempest\Cache;
 
 use Exception;
 
-final class ForbiddenCacheUsageException extends Exception implements CacheException
+final class CacheUsageWasForbidden extends Exception implements CacheException
 {
     public function __construct(
         public readonly ?string $tag = null,
