@@ -4,7 +4,7 @@ namespace Tempest\Cache;
 
 use Exception;
 
-final class LockAcquisitionTimedOutException extends Exception implements CacheException
+final class LockAcquisitionTimedOut extends Exception implements CacheException
 {
     public function __construct(
         public readonly string $key,
