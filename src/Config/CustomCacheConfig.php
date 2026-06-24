@@ -15,7 +15,7 @@ final class CustomCacheConfig implements CacheConfig
         /**
          * FQCN of the custom cache adapter, resolved through the container.
          *
-         * @param class-string<AdapterInterface>
+         * @param class-string<AdapterInterface> $adapter
          */
         private string $adapter,
 
